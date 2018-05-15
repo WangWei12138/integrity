@@ -19,9 +19,21 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../node_modules/bootstrap-select/dist/css/bootstrap-select.css",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "assets/plugins/easyui/themes/default/easyui.css",
+        "assets/plugins/easyui/themes/icon.css",
+        "assets/plugins/bootstrap-table/dist/bootstrap-table.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/bootstrap-select/dist/js/bootstrap-select.js",
+        "assets/plugins/easyui/jquery.easyui.min.js",
+        "assets/plugins/bootstrap-table/dist/bootstrap-table.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,0 +1,20 @@
+<form class="form-inline">
+    <select class="selectpicker" multiple title="Project" *ngFor="let project of projects | async" >
+      <option value="{{project.id}}">{{project['name']}}</option>
+    </select>
+    <select class="selectpicker" multiple title="State">
+      <option>Edit</option>
+      <option>Inactive</option>
+      <option>In Review</option>
+      <option>Released</option>
+      <option>Delivered</option>
+      <option>Restricted</option>
+      <option>Retired</option>
+    </select>
+    <input type="text" placeholder="ID" id="ID" class="form-control">
+    <select class="selectpicker" title="Responsible">
+      <option>--Assigned to me--</option>
+    </select>
+  <a type="submit" class="btn btn-info">Search</a>
+</form>
+

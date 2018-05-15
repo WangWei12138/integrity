@@ -1,0 +1,45 @@
+<div id="toolbar">
+  <div class="btn-group btn-group-sm" role="group" aria-label="...">
+    <button class="btn btn-default" title="Add" *ngIf="showAdd" (click)="onAdd()">
+      <i class="fa fa-plus fa-fw"></i>
+    </button>
+    <button class="btn btn-default" title="Delete" *ngIf="showRemove" (click)="onDelete()">
+      <i class="fa fa-minus fa-fw"></i>
+    </button>
+    <button [class]="selected.length==1?'btn btn-default':'btn btn-default disabled'"  title="Edit"  *ngIf="showEdit" (click)="onEdit()">
+      <i class="fa fa-edit fa-fw"></i>
+    </button>
+    <button class="btn btn-default" [class.disabled]="selected.length==0" title="Batch Edit"  *ngIf="showBatchEdit" (click)="onBacthEdit()">
+      <i class="fa fa-bitcoin fa-fw"></i>
+    </button>
+    <button [class]="selected.length==1?'btn btn-default':'btn btn-default disabled'" title="View Document"  *ngIf="showViewDocument" (click)="onViewDocument()">
+      <i class="fa fa-envelope-open fa-fw"></i>
+    </button>
+    <button class="btn btn-default" [class.disabled]="selected.length==0" title="Move Up"  *ngIf="showUp" (click)="onMoveUp(table)">
+      <i class="fa fa-arrow-up fa-fw"></i>
+    </button>
+    <button class="btn btn-default" [class.disabled]="selected.length==0" title="Move Down"  *ngIf="showDown" (click)="onMoveDown(table)">
+      <i class="fa fa-arrow-down fa-fw"></i>
+    </button>
+    <!--<button class="btn btn-default" title="filter" *ngIf="!searchHide" (click)="showSearch()">-->
+      <!--<i class="fa fa-search fa-fw"></i>-->
+    <!--</button>-->
+    <!--&nbsp;<button class="btn btn-default pull-right" title="filter" *ngIf="searchHide" (click)="showSearch()">-->
+    <!--<i class="fa fa-hand-grab-o fa-fw"></i>-->
+  <!--</button>-->
+    <!--<div class="pull-right" *ngIf="searchHide">-->
+      <!--<input class="form-control" style="height: 30px;width: 800px;"-->
+             <!--type="text" placeholder="Search" #search-->
+            <!--(keypress)="onKeyPress($event,table,search.value)" >-->
+    <!--</div>-->
+  </div>
+
+</div>
+<table id="table" #table></table>
+<!-- context menu -->
+<ul id="context-menu" class="dropdown-menu">
+  <li data-item="edit"><a>Edit</a></li>
+  <li data-item="delete"><a>Delete</a></li>
+  <li data-item="action1"><a>Action Here</a></li>
+  <li data-item="action2"><a>And Action Here</a></li>
+</ul>
