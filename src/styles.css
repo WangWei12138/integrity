@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+.flex {
+  display: flex;
+  align-items: flex-start;
+}
+.flex.center {
+  align-items: center;
+}
+*{
+  font-size: 12px;
+}
+
+
+.app-navbar {
+
+}
+
+.app-content {
+  padding: 45px 10px 10px 10px;
+  overflow-x: hidden;
+}
+
+.app-footer {
+  margin: 0 10px;
+  padding: 10px 0;
+  border-top: 1px solid #cccccc;
+  text-align: center;
+}
+
+.dy-label {
+  text-align: right;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.dy-required {
+  width: 10px;
+  color: red;
+}
+
+.app-error {
+  color: red;
+}
+
+.app-info {
+
+}
+
+.app-waring {
+
+}
+
+.app-success {
+
+}
+
+.app-icon {
+  margin-right: 5px;
+}
+
+.app-link:hover {
+  text-decoration-line: underline;
+}
+
+.app-collapse-title{
+  cursor: pointer;
+}
+.app-query{
+  padding: 10px;
+}

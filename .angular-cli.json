@@ -21,8 +21,8 @@
       "styles": [
         "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/bootstrap-select/dist/css/bootstrap-select.css",
         "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/ng-zorro-antd/src/ng-zorro-antd.less",
         "assets/plugins/easyui/themes/default/easyui.css",
         "assets/plugins/easyui/themes/icon.css",
         "assets/plugins/bootstrap-table/dist/bootstrap-table.css"
@@ -30,9 +30,9 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
-        "../node_modules/bootstrap-select/dist/js/bootstrap-select.js",
+        "assets/plugins/bootstrap-table/dist/bootstrap-table.js",
         "assets/plugins/easyui/jquery.easyui.min.js",
-        "assets/plugins/bootstrap-table/dist/bootstrap-table.js"
+        "../node_modules/echarts/dist/echarts.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

@@ -1,5 +1,5 @@
 {
   "/rest":{
-    "target":"http://10.110.1.73:8080/"
+    "target":"http://localhost:8080/"
   }
 }
