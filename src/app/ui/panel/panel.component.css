@@ -1,0 +1,59 @@
+.app-left{
+  float: left;
+}
+.app-title{
+  margin-left: 10px;
+  vertical-align: center;
+}
+.app-title-id{
+  margin-top: 5px;
+}
+.app-title-name{
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 5px;
+}
+.app-issue-btn{
+  clear: both;
+  padding-top: 10px;
+}
+.app-field-title{
+  font-size: 12px;
+  font-weight: bold;
+}
+.app-field-title-lg{
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 20px;
+}
+.tab-content .tab-pane{
+  padding: 10px;
+  border-left: 1px solid #DDDDDD;
+  border-right: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  border-radius: 0 0 5px 5px;
+}
+.tab-content .tab-pane .row .col-lg-2,
+.tab-content .tab-pane .row .col-md-2,
+.tab-content .tab-pane .row .col-sm-2,
+.tab-content .tab-pane .row .col-lg-4,
+.tab-content .tab-pane .row .col-md-4,
+.tab-content .tab-pane .row .col-sm-4,
+.tab-content .tab-pane .row .col-lg-9,
+.tab-content .tab-pane .row .col-md-9,
+.tab-content .tab-pane .row .col-sm-9{
+  margin: 5px 0 0 0;
+}
+.app-issue-tabs{
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-top: 1px solid #DDDDDD;
+}
+.app-issue-tabs-title{
+  font-size: 14px;
+  font-weight: bold;
+}
+.tab-content .tab-pane{
+  min-height: 400px;
+}

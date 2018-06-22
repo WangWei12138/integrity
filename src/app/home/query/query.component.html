@@ -1,0 +1,12 @@
+<div class="app-query">
+  <div>
+    <div class="app-query-title">
+      <span>Query : </span>
+      <span>{{type}}</span>
+      <span *ngIf="project && project.length>0"> in {{project}}</span>
+    </div>
+  </div>
+  <div>
+    <app-table [config]="tableConfig" [url]="tableConfig.url" [columns]="tableConfig.columns" #table></app-table>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div>
+  <nz-radio-group [(ngModel)]="radioValue" class="pull-right" (ngModelChange)="order($event)">
+    <label nz-radio nzValue="Last">Most Recent Last</label>
+    <label nz-radio nzValue="First">Most Recent First</label>
+  </nz-radio-group>
+</div>
+<div *ngFor="let history of moreHistories; let i=index;"
+     class="col-lg-12 col-md-12 col-sm-12 history history-hover" [class.history-border]="i!==moreHistories.length-1">
+  <div class="history-userInfo">
+    <div *ngIf="history.modifiedBy">
+      <a style="width:100px;">{{history.modifiedBy}}</a>
+      <span>-</span>
+      <span>Modify</span>
+      <span>on-</span>
+      <a>{{history.modifiedDate}}</a>
+    </div>
+    <div *ngIf="history.createdBy">
+      <a style="width:100px;">{{history.createdBy}}</a>
+      <span>-</span>
+      <span>Create</span>
+      <span>on-</span>
+      <a>{{history.createdDate}}</a>
+    </div>
+
+  </div>
+  <div  *ngFor="let field of history.fields" class="row history-fieldInfo">
+    <div class="col-lg-1 col-md-1 col-sm-1 history-fieldInfo-field">Field :</div>
+    <div class="col-lg-2 col-md-2 col-sm-2">{{field.displayName}}</div>
+    <div class="col-lg-1 col-md-1 col-sm-1 history-fieldInfo-field">Value :</div>
+    <div class="col-lg-8 col-md-8 col-sm-8">{{field.value}}</div>
+  </div>
+</div>
+<div class="history-loading" *ngIf="loading">
+  <i class="fa fa-spinner fa-spin fa-3x"></i>
+</div>
+

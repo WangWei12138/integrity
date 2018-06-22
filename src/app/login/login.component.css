@@ -1,0 +1,27 @@
+.login{
+  width: 500px;
+  padding-top: 40px;
+}
+
+.login-form {
+  padding: 40px 80px 20px 40px;
+  border: 1px solid #CCCCCC;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #CCCCCC, 0 0 5px #CCCCCC;
+  margin-bottom: 50px;
+}
+.login .login-form h4{
+  margin: 0 0 20px 0;
+}
+.login .login-form nz-form-item{
+  margin-left: 20%;
+  width: 250px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.login-form-button {
+  width: 100%;
+}

@@ -1,0 +1,86 @@
+<div class="dashboard">
+  <h3>System Dashboard</h3>
+  <div class="dashboard-content row">
+    <div class="col-md-4 col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#userGuide">
+              User Guide
+            </a>
+          </h4>
+        </div>
+        <div id="userGuide" class="panel-collapse collapse in">
+          <div class="panel-body useGuide">
+            <div class="col-md-2">
+              <img src="../../../assets/imgs/ptc.ico" class="ptcImg">
+            </div>
+            <div class="col-md-10">
+              <div>Welcome to NIO/蔚来 Integrity</div>
+              <div>New to Integrity? Click the
+                <a class="app-link"
+                   href="http://10.112.12.11:7001/integrity108_hc/?id=help_start&action=show" target="_blank">Integrity
+                  User's Guide</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-8">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4 class="panel-title app-collapse-title" data-toggle="collapse" data-parent="#accordion" href="#assignedToMe">
+              <a>
+                Assigned to Me
+              </a>
+            </h4>
+          </div>
+          <div id="assignedToMe" class="panel-collapse collapse">
+            <div class="panel-body table">
+              <nz-table #basicTable [nzData]="dashConfig.assignedToMe" [nzSize]="'small'" [nzPageSize]="9" >
+                <thead>
+                <tr>
+                  <th *ngFor="let field of dashConfig.columns">{{field.name}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let data of basicTable.data">
+                  <td *ngFor="let field of dashConfig.columns" >
+                    <span *ngIf="field.name==='Type'" [title]="data[field.name]">
+                      <img
+                        [src]="'../../../assets/imgs/'+ (data[field.name] | img)">
+                    </span>
+                    <span *ngIf="field.name==='ID'" class="app-link">
+                      <a [routerLink]="['/issue',dataService.getTypeId(data['Type']),data[field.name]]">{{data[field.name]}}</a>
+                    </span>
+                    <span *ngIf="field.name==='State'">
+                      <kbd>{{data[field.name]}}</kbd>
+                    </span>
+                    <span *ngIf="field.name!=='Type' && field.name!=='ID' && field.name!=='State'">{{data[field.name]}}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </nz-table>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h4 class="panel-title app-collapse-title" data-toggle="collapse" data-parent="#accordion" href="#allDocument">
+              <a>
+                All Document
+              </a>
+            </h4>
+          </div>
+          <div id="allDocument" class="panel-collapse collapse in">
+            <div class="panel-body" style="overflow-x: hidden;padding: 20px 0 10px 0;">
+              <app-chart-bar [config]="dashConfig.chartConfig"  #chart></app-chart-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

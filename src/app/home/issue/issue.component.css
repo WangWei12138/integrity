@@ -1,0 +1,10 @@
+.issue {
+  overflow: hidden;
+  padding: 5px 10px 10px 10px;
+}
+
+.wait-img {
+  position: absolute;
+  top: 150px;
+  left: 47%;
+}

@@ -1,0 +1,58 @@
+<div class="app-issue">
+  <div class="app-issie-title">
+    <img [src]="imgUrl" width="50" [title]="config.type" class="app-left">
+    <div class="app-left app-title">
+      <div class="app-title-id"><a>{{config.type}}</a> / <a>{{config.id}}</a></div>
+      <div class="app-title-name">{{config.name}}</div>
+    </div>
+  </div>
+  <div class="app-issue-btn">
+    <button class="btn btn-default btn-sm" (click)="onClick($event,'edit')"><i class="fa fa-edit fa-fw"></i>Edit</button>
+    <button class="btn btn-default btn-sm" (click)="onClick($event,'assign')"><i class="fa fa-user-circle fa-fw"></i>Assign</button>
+    <button class="btn btn-default btn-sm" (click)="onClick($event,'more')">More</button>
+  </div>
+  <div class="app-issue-tabs">
+    <ul class="nav nav-tabs">
+      <li *ngFor="let tab of config.tabs;let i=index;" class="active" [class.active]="i===0">
+        <a [href]="'#'+tab.domId" data-toggle="tab" class="app-issue-tabs-title">{{tab.name}}</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div *ngFor="let tab of config.tabs;let i=index;" class="tab-pane fade in active" [class.active]="i===0"
+           [id]="tab.domId">
+        <div *ngIf="!tab.fieldType">
+          <div class="row" *ngFor="let field of tab.fields;">
+            <div *ngIf="field.half===true">
+              <div class="app-field-title col-lg-2 col-md-2 col-sm-2">{{field.field}}</div>
+              <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="field.type===1" [innerHTML]="field.value"></div>
+              <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="!field.type || field.type===0">{{field.value}}</div>
+              <div class="app-field-title col-lg-2 col-md-2 col-sm-2">{{field.field1}}</div>
+              <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="field.type1===1" [innerHTML]="field.value1"></div>
+              <div class="col-lg-4 col-md-4 col-sm-4" *ngIf="!field.type1 || field.type1===0">{{field.value1}}</div>
+            </div>
+            <div *ngIf="field.half!==true">
+              <div class="app-field-title col-lg-2 col-md-2 col-sm-2">{{field.field}}</div>
+              <div class="col-lg-9 col-md-9 col-sm-9" *ngIf="field.type===1" [innerHTML]="field.value"></div>
+              <div class="col-lg-9 col-md-9 col-sm-9" *ngIf="!field.type || field.type===0">{{field.value}}</div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tab.fieldType==1">
+          <div class="row" *ngFor="let table of tab.configs;"  >
+            <div class="app-field-title-lg col-lg-12 col-md-12 col-sm-12">{{table.field}}</div>
+            <div class=" col-lg-12 col-md-12 col-sm-12">
+              <app-table [config]="table.config"></app-table>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tab.fieldType==2">
+          <div class="row" *ngFor="let history of tab.configs;">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <app-history [histories]="history.config" [url]="history.url"></app-history>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

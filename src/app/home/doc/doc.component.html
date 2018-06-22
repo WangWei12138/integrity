@@ -1,0 +1,23 @@
+<div class="row app-toolbar">
+  <div>
+    <div style="padding-left: 10px;padding-top: 2px;padding-right: 20px;" class="form-inline">
+      <img src="../../../assets/imgs/functional-design-spec-document.svg" width="30px">
+      <span class="title-name">{{treeConfig.data[0].text}}</span>
+      <div class="pull-right btn-group">
+        <button class="btn btn-default btn-sm" (click)="onClick($event, 'insert')">Insert</button>
+        <button class="btn btn-default btn-sm" (click)="onClick($event, 'copy')">Copy</button>
+        <button class="btn btn-default btn-sm" (click)="onClick($event, 'delete')">Delete</button>
+        <button class="btn btn-default btn-sm" (click)="onClick($event, 'moveUp')">Move Up</button>
+        <button class="btn btn-default btn-sm" (click)="onClick($event, 'moveDown')">Move Down</button>
+      </div>
+      <button class="btn btn-default btn-sm pull-right" (click)="onClick($event, 'toggle')">{{toggle}}</button>
+    </div>
+  </div>
+</div>
+<div class="row app-doc">
+  <app-tree [config]="treeConfig" class="app-tree-panel" [ngClass]="{'app-tree-panel-hide':expand}" #tree></app-tree>
+  <div class="app-handle"></div>
+  <div class="app-issue-panel" [ngClass]="{'app-issue-panel-all': expand}">
+    <router-outlet></router-outlet>
+  </div>
+</div>

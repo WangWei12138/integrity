@@ -1,0 +1,44 @@
+<div class="container login">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <h4>Welcome to NIO/蔚来 Integrity</h4>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input type="text" nz-input formControlName="username" placeholder="Username">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('username').dirty && validateForm.get('username').errors">
+          Please input your username!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="validateForm.get('username')['msg']">
+          <span class="app-error">{{validateForm.get('username')['msg']}}</span>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input type="password" nz-input formControlName="password" placeholder="Password">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">
+          Please input your Password!
+        </nz-form-explain>
+        <nz-form-explain *ngIf="validateForm.get('password')['msg']">
+          <span class="app-error">{{validateForm.get('password')['msg']}}</span>
+        </nz-form-explain>
+
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <label nz-checkbox formControlName="remember">
+          <span>Remember</span>
+        </label>
+        <a class="login-form-forgot" class="login-form-forgot" (click)="forgotPwd($event)">Forgot</a>
+        <button nz-button class="login-form-button" [nzType]="'primary'" [disabled]="!validateForm.dirty || !validateForm.valid">
+          <i class="fa fa-spinner fa-spin fa-fw" *ngIf="status===1"></i>
+          Log in
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

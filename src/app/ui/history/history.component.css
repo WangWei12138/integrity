@@ -1,0 +1,27 @@
+.history {
+  padding: 8px;
+  position: relative;
+}
+.history-hover:hover{
+  border-left: 4px solid green;
+  background-color: #B5DEFF;
+  cursor: pointer;
+}
+.history-border {
+  border-bottom: 1px solid #d9d9d9;
+}
+.history-userInfo {
+
+}
+.history-fieldInfo {
+  margin-top: 5px;
+}
+.history-fieldInfo-field{
+  font-weight: bold;
+}
+.history-loading{
+  text-align: center;
+  position: absolute;
+  top: 200px;
+  left:48%;
+}
