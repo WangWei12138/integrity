@@ -1,1 +1,10 @@
 <ul [id]="config.domId"></ul>
+<div *ngIf="showContentMenu"  class="menu-content" [ngStyle]="menuContentStyle"
+     (mouseleave)="showContentMenu = !showContentMenu">
+  <ul class="content">
+    <li (click)="menuEvent($event,'view')">View</li>
+    <li (click)="menuEvent($event,'add')">Add</li>
+    <li (click)="menuEvent($event,'delete')">Delete</li>
+    <li (click)="menuEvent($event,'insertInto')">Insert Into</li>
+  </ul>
+</div>

@@ -11,6 +11,12 @@
         <button class="btn btn-default btn-sm" (click)="onClick($event, 'moveDown')">Move Down</button>
       </div>
       <button class="btn btn-default btn-sm pull-right" (click)="onClick($event, 'toggle')">{{toggle}}</button>
+      <!--<nz-select style="width: 100px;height:30px;" class="pull-right" [(ngModel)]="vehicleType" [nzSize]="'default'">-->
+        <!--<nz-option [nzValue]="'ES6'" [nzLabel]="'ES6'"></nz-option>-->
+        <!--<nz-option [nzValue]="'ET7'" [nzLabel]="'ET7'"></nz-option>-->
+        <!--<nz-option [nzValue]="'ES8'" [nzLabel]="'ES8'"></nz-option>-->
+        <!--<nz-option [nzValue]="'All'" [nzLabel]="'All'" aria-selected="true"></nz-option>-->
+      <!--</nz-select>-->
     </div>
   </div>
 </div>
@@ -18,6 +24,7 @@
   <app-tree [config]="treeConfig" class="app-tree-panel" [ngClass]="{'app-tree-panel-hide':expand}" #tree></app-tree>
   <div class="app-handle"></div>
   <div class="app-issue-panel" [ngClass]="{'app-issue-panel-all': expand}">
-    <router-outlet></router-outlet>
+    <!--<router-outlet></router-outlet>-->
+    <app-table [config]="docTabConfig"></app-table>
   </div>
 </div>

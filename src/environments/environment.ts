@@ -4,6 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 // export const suffix = '/webapp';
 // export const suffix_path = '/webapp/dist/index.html#';
+import * as FileSaver from 'file-saver';
+import {Column} from '../app/ui/table/table.component';
+import {CustomActive} from './environment.event';
+
 export const suffix = '';
 export const suffix_path = '/#';
 export const environment = {
@@ -124,47 +128,79 @@ export const environment = {
   },
   query: {
     url: suffix + '/rest/query?query={query}&fields={fields}',
+    childUrl: suffix + '/rest/childIssue?ids={ids}&fields={fields}',
     types: [
       {
         name: 'Function List Document',
-        fields: ['ID', 'Type', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
-        hideFields: ['Shared Text']
+        fields: ['ID', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Shared Text'],
+        childFields: ['ID', 'Name',
+          // 'Chinese Name',
+          'Text', 'Responsible', 'ES6', 'Change Type', 'Homologations',
+          'State'
+          // , 'Item Ref.', 'Function Master', 'Function Components', 'Function Support'
+        ],
+        otherEvents: [
+          {
+            name: 'Function List Export',
+            event: CustomActive.functionList.export
+          }, {
+            name: 'View Difference For Document',
+            event: (item) => {
+              console.log(`View Difference For Document : ${JSON.stringify(item)}`);
+            }
+          }, {
+            name: 'Export Item To Excel',
+            event: CustomActive.exportItemToExcel
+          }
+        ]
       },
       {
         name: 'Functional Design Spec Document',
-        fields: ['ID', 'Type', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
-        hideFields: ['Shared Text', 'Baseline', 'FDS Version']
+        fields: ['ID', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Shared Text', 'Baseline', 'FDS Version'],
+        childFields: [],
+        otherEvents: []
       },
       {
         name: 'Components Document',
-        fields: ['ID', 'Type', 'Name', 'State', 'Responsible', 'Project', 'Modified Date'],
-        hideFields: ['Description']
+        fields: ['ID', 'Name', 'State', 'Responsible', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Description'],
+        childFields: [],
+        otherEvents: []
       },
       {
         name: 'Component Requirement Spec Document',
-        fields: ['ID', 'Type', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
-        hideFields: ['Description']
+        fields: ['ID', 'Document Short Title', 'State', 'Responsible', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Description'],
+        childFields: [],
+        otherEvents: []
       },
       {
         name: 'Test Plan',
-        fields: ['ID', 'Type', 'Summary', 'State', 'Assigned User', 'Project', 'Modified Date', 'Planned Start Date', 'Planned End Date'],
-        hideFields: ['Description']
+        fields: ['ID', 'Summary', 'State', 'Assigned User', 'Project', 'Modified Date', 'Planned Start Date', 'Planned End Date'],
+        hideFields: ['Type', 'Description'],
+        otherEvents: []
       },
       {
         name: 'Test Objective',
-        fields: ['ID', 'Type', 'Summary', 'State', 'Assigned User', 'Priority', 'Test Type',
+        fields: ['ID', 'Summary', 'State', 'Assigned User', 'Priority', 'Test Type',
           'Function List ID', 'Project', 'Modified Date'],
-        hideFields: ['Deviation Description']
+        hideFields: ['Type', 'Deviation Description'],
+        otherEvents: []
       },
       {
         name: 'Test Session',
-        fields: ['ID', 'Type', 'Summary', 'State', 'Assigned User', 'Test Objective', 'Priority', 'Project', 'Modified Date'],
-        hideFields: ['Hardware Part Number', 'Software Part Number', 'Description']
+        fields: ['ID', 'Summary', 'State', 'Assigned User', 'Test Objective', 'Priority', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Hardware Part Number', 'Software Part Number', 'Description'],
+        otherEvents: []
       },
       {
         name: 'Test Suite',
-        fields: ['ID', 'Type', 'Document Short Title', 'State', 'Assigned User', 'Project', 'Modified Date'],
-        hideFields: ['Description']
+        fields: ['ID', 'Document Short Title', 'State', 'Assigned User', 'Project', 'Modified Date'],
+        hideFields: ['Type', 'Description'],
+        childFields: [],
+        otherEvents: []
       }]
   },
   issues: {

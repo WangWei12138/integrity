@@ -1,6 +1,8 @@
 import {AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {DataService} from '../../service/data.service';
-import {suffix_path} from '../../../environments/environment';
+import {environment, suffix_path} from '../../../environments/environment';
+import * as FileSaver from 'file-saver';
+import {MessageService} from '../../service/message.service';
 
 declare var $: any;
 
@@ -19,7 +21,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
   tableModal: any;  // table jQuery<Element>;
 
-  constructor(private dataService: DataService, private cd: ChangeDetectorRef) {
+  constructor(private dataService: DataService, private msgService: MessageService, private cd: ChangeDetectorRef) {
   }
 
 
@@ -43,6 +45,25 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
       }
     }
     $('#' + this.config.domId).bootstrapTable('destroy');
+    // this.config.columns = this.config.columns.map(col => {
+    //   if (col.field === 'ID') {
+    //     col['formatter'] = (value, row, index, field) => {
+    //       let type = row['Type'];
+    //       type = this.dataService.getTypeId(type);
+    //       return `<a target="_blank" href="${suffix_path}/issue/${type}/${value}">${value}</a>`;
+    //     };
+    //   }
+    //   if (col.field === 'Document Short Title') {
+    //     col['formatter'] = (value, row, index, field) => {
+    //       let type = row['Type'];
+    //       const id = row['ID'];
+    //       type = this.dataService.getTypeId(type);
+    //       return `<a target="_blank" href="${suffix_path}/doc/${type}/${id}">${value}</a>`;
+    //     };
+    //   }
+    //
+    //   return col;
+    // });
     this.ngAfterViewInit();
   }
 
@@ -53,6 +74,13 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this.dataService.showProgress();
     this.tableModal = $('#' + this.config.domId);
     console.log('table');
+    if ($('.navbar-fixed-top').css('height')) {
+      this.config.offsetY = +$('.navbar-fixed-top').css('height').replace('px', '');
+    }
+    if ($('.navbar-fixed-top').css('margin-bottom')) {
+      this.config.offsetY += +$('.navbar-fixed-top').css('margin-bottom').replace('px', '');
+    }
+    this.config.stickyHeaderOffsetY = this.config.offsetY + 90 + 'px';
     this.tableModal.bootstrapTable(this.config);
     this.cd.detectChanges();
   }
@@ -108,6 +136,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
         break;
     }
   }
+
 
   /**
    * 移动Table中Data位置
@@ -222,6 +251,12 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this.config.sidePagination = this.config.sidePagination === undefined ? 'client' : this.config.sidePagination;
     this.config.pageNumber = 1;
 
+    this.config.showExport = this.config.showExport === undefined ? true : this.config.showExport;
+    if (this.config.showExport) {
+      this.config.exportDataType = 'all';
+      this.config.exportTypes = ['csv', 'doc'];
+      this.config.buttonsClass = 'sm btn-default';
+    }
     this.config.showColumns = this.config.showColumns === undefined ? true : this.config.showColumns;
     this.config.showRefresh = this.config.showRefresh === undefined ? true : this.config.showRefresh;
     this.config.showToggle = this.config.showToggle === undefined ? true : this.config.showToggle;
@@ -230,11 +265,11 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
     this.config.sortable = this.config.sortable === undefined ? true : this.config.sortable;
     this.config.silentSort = this.config.silentSort === undefined ? true : this.config.silentSort;
     this.config.responseHandler = this.config.responseHandler === undefined ? (res) => {
-        this.dataService.hideProgress();
-        return {
-          data: res.data
-        };
-      } : this.config.responseHandler;
+      this.dataService.hideProgress();
+      return {
+        data: res.data
+      };
+    } : this.config.responseHandler;
     this.config.toolbar = this.config.toolbarId ? '#' + this.config.toolbarId : null;
     // 默认事件处理
     this.config.onCheck = this.config.onCheck ? this.config.onCheck : (row) => this.selected.push(row);
@@ -244,23 +279,77 @@ export class TableComponent implements OnInit, AfterViewInit, OnChanges {
 
     this.config.idField = this.config.idField ? this.config.idField : 'ID';
 
-    console.log('format');
-    this.config.columns = this.config.columns.map(col => {
-      if (col.field === 'ID') {
-        col['formatter'] = (value, row, index, field) => {
-          let type = row['Type'];
-          type = this.dataService.getTypeId(type);
-          return `<a target="_blank" href="${suffix_path}/issue/${type}/${value}">${value}</a>`;
-        };
-      }
-      return col;
-    });
+    // console.log('format');
+    // this.config.columns = this.config.columns.map(col => {
+    //   if (col.field === 'ID') {
+    //     col['formatter'] = (value, row, index, field) => {
+    //       let type = row['Type'];
+    //       type = this.dataService.getTypeId(type);
+    //       return `<a target="_blank" href="${suffix_path}/issue/${type}/${value}">${value}</a>`;
+    //     };
+    //   }
+    //   if (col.field === 'Document Short Title') {
+    //     col['formatter'] = (value, row, index, field) => {
+    //       let type = row['Type'];
+    //       const id = row['ID'];
+    //       type = this.dataService.getTypeId(type);
+    //       return `<a target="_blank" href="${suffix_path}/doc/${type}/${id}">${value}</a>`;
+    //     };
+    //   }
+    //
+    //   return col;
+    // });
     console.log(this.config);
     if (this.config.showCheckBox) {
       this.config.columns.unshift({checkbox: true});
     }
+    this.config.stickyHeader = true;
+    this.config.offsetY = 0;
+    this.config.stickyHeaderOffsetY = this.config.offsetY + 'px';
+
+    this.config.contextMenu = '#context-menu';
+    this.config.onContextMenuItem = (row, $el) => this.menuEvent(row, $el.data('item'));
   }
 
+  menuEvent(row: any, action: string) {
+    let data = {};
+    switch (action) {
+      case 'view' :
+        this.config.viewEvent(null, row); // 无须返回，直接展示Issue信息即可
+        break;
+      case 'viewDoc':
+        this.config.viewDocEvent(null, row);  // 无须返回，直接展示Tree结构即可
+        break;
+      // case 'add':
+      //   data = this.config.addEvent(null); // 该返回值应该是一个对象，并将该数据压入表格中
+      //   data ? this.insertData(data) : console.error(`failed to ${action}`);
+      //   break;
+      default:
+        const event = this.config.otherEvents.find(e => e.name === action);
+        const selected = this.getSelectData();
+        let data: any;
+        if (selected !== undefined && selected.indexOf(row) >= 0) {
+          data = selected;
+        } else {
+          data = row;
+        }
+        let resUrl: any;
+        if (action === 'Export Item To Excel') {
+          resUrl = event.event(this.config.columns, data);
+        } else {
+          resUrl = event.event(row);
+        }
+        if (resUrl !== undefined && resUrl.length > 0) {
+          this.msgService.notifyInfo('Tip', 'The export work is in progress, and will inform you when finished!');
+          this.dataService.get(resUrl).subscribe(res => {
+            if (res['success']) {
+              this.msgService.notifyInfo('Success', 'Export Finish!');
+              window.open(res['data']);
+            }
+          });
+        }
+    }
+  }
 
   /**
    * 获得选中数据
@@ -361,6 +450,10 @@ export interface TableConfig {
   showRefresh?: boolean;   // 显示刷新按钮
   showToggle?: boolean;    // 是否显示切换视图（table/card）按钮
   showCheckBox?: boolean;
+  showExport?: boolean;
+  exportDataType?: string;
+  exportTypes?: Array<string>;
+  buttonsClass?: string;
   singleSelect?: boolean;  // 复选框只能选择一条记录
   search?: boolean;   // 是否显示右上角的搜索框
   sortable?: boolean; // 是否启动排序
@@ -381,6 +474,17 @@ export interface TableConfig {
   viewDocEvent?: Function;
   moveUpEvent?: Function;
   moveDownEvent?: Function;
+  otherEvents?: Array<TableOtherEventConfig>;
+  contextMenu?: string;
+  onContextMenuItem?: Function;
+  stickyHeader?: boolean;
+  offsetY?: number;
+  stickyHeaderOffsetY?: string;
+}
+
+export interface TableOtherEventConfig {
+  name?: string;
+  event?: Function;
 }
 
 /**

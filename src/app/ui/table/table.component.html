@@ -57,3 +57,11 @@
 
 </div>
 <table [id]="config.domId" #table ></table>
+<ul id="context-menu" class="dropdown-menu">
+  <li data-item="view" *ngIf="config.viewEvent"><a>View</a></li>
+  <li data-item="viewDoc" *ngIf="config.viewDocEvent"><a>View Document</a></li>
+  <li data-item="add" *ngIf="config.addEvent"><a>Add</a></li>
+  <li data-item="edit" *ngIf="config.editEvent"><a>Edit</a></li>
+  <li data-item="delete" *ngIf="config.deleteEvent"><a>Delete</a></li>
+  <li *ngFor="let event of config.otherEvents" [attr.data-item]="event.name"><a>{{event.name}}</a></li>
+</ul>

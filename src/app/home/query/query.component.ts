@@ -52,17 +52,42 @@ export class QueryComponent implements OnInit {
           types = environment.query.types,
           typeFields = types.find(t => t.name === this.type),
           fields = typeFields.fields,
-          hideFields = typeFields.hideFields;
+          hideFields = typeFields.hideFields,
+          otherEvents = typeFields.otherEvents;
 
         this.tableConfig.url = this.data.getQueryUrl(url, this.type, fields.concat(hideFields).join(','), this.project);
         const columns = [];
         fields.forEach(field => {
-          columns.push({field: field, title: field});
+          if (field === 'ID') {
+            columns.push({
+              field: field, title: field,
+              formatter: (value, row, index) => {
+                let type = row['Type'];
+                type = this.data.getTypeId(type);
+                return `<a target="_blank" href="${suffix_path}/issue/${type}/${value}">${value}</a>`;
+              }
+            });
+          } else if (field === 'Document Short Title') {
+            columns.push({
+              field: field, title: field,
+              formatter: (value, row, index) => {
+                let type = row['Type'];
+                const id = row['ID'];
+                type = this.data.getTypeId(type);
+                return `<a target="_blank" href="${suffix_path}/doc/${type}/${id}">${value}</a>`;
+              }
+            });
+          } else {
+            columns.push({field: field, title: field});
+          }
         });
         hideFields.forEach(field => {
           columns.push({field: field, title: field, visible: false});
         });
         this.tableConfig.columns = columns;
+        this.tableConfig.otherEvents = otherEvents;
+
+
         this.data.hideProgress();
       }
     );

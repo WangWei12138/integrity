@@ -23,16 +23,21 @@
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/font-awesome/css/font-awesome.css",
         "../node_modules/ng-zorro-antd/src/ng-zorro-antd.less",
-        "assets/plugins/easyui/themes/default/easyui.css",
         "assets/plugins/easyui/themes/icon.css",
-        "assets/plugins/bootstrap-table/dist/bootstrap-table.css"
+        "assets/plugins/easyui/themes/default/easyui.css",
+        "assets/plugins/bootstrap-table/dist/bootstrap-table.css",
+        "assets/plugins/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "../node_modules/echarts/dist/echarts.min.js",
         "assets/plugins/bootstrap-table/dist/bootstrap-table.js",
-        "assets/plugins/easyui/jquery.easyui.min.js",
-        "../node_modules/echarts/dist/echarts.min.js"
+        "assets/plugins/bootstrap-table/dist/extensions/content-menu/bootstrap-table-contextmenu.min.js",
+        "assets/plugins/bootstrap-table/dist/extensions/export/bootstrap-table-export.js",
+        "assets/plugins/bootstrap-table/dist/extensions/sticky-header/bootstrap-table-sticky-header.js",
+        "assets/plugins/tableExport/tableExport.js",
+        "assets/plugins/easyui/jquery.easyui.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

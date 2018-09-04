@@ -34,7 +34,7 @@
           <span>Remember</span>
         </label>
         <a class="login-form-forgot" class="login-form-forgot" (click)="forgotPwd($event)">Forgot</a>
-        <button nz-button class="login-form-button" [nzType]="'primary'" [disabled]="!validateForm.dirty || !validateForm.valid">
+        <button nz-button class="login-form-button" [nzType]="'primary'">
           <i class="fa fa-spinner fa-spin fa-fw" *ngIf="status===1"></i>
           Log in
         </button>
@@ -42,3 +42,4 @@
     </nz-form-item>
   </form>
 </div>
+

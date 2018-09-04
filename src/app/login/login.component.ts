@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
       password: [this.login.getPwd(), [Validators.required]],
       remember: [true]
     });
+    console.log(this.validateForm);
   }
 
   /**

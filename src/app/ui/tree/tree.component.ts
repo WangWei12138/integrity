@@ -18,6 +18,10 @@ export class TreeComponent implements OnInit, AfterViewInit {
 
   currentSelect: Object;
 
+  // 控制Content的菜单
+  showContentMenu: boolean;
+  menuContentStyle: any;
+
   constructor(private http: HttpClient) {
   }
 
@@ -105,6 +109,19 @@ export class TreeComponent implements OnInit, AfterViewInit {
       };
     }
 
+    this.config.onContextMenu = (e, node) => {
+      console.log(node);
+      e.preventDefault();
+      this.showContentMenu = true;
+      console.log(e.clientY);
+      this.selected(node.id);
+      this.menuContentStyle = {
+        'top': e.pageY - 90 + 'px',
+        'left': e.screenX + 'px'
+      };
+    };
+
+
     // if (!this.config.loadFilter) {
     //   this.config.loadFilter = (res) => {
     //     if (res['success']) {
@@ -117,6 +134,15 @@ export class TreeComponent implements OnInit, AfterViewInit {
     delete this.config.url;
     delete this.config.method;
     this.getTree().tree(this.config);
+  }
+
+  menuEvent(event: any, action: string) {
+    switch (action) {
+      case 'view':
+        console.log(this.getSelected());
+        break;
+    }
+    this.showContentMenu = false;
   }
 
   /**
@@ -334,6 +360,8 @@ export interface TreeConfig {
   onClickEvent?: Function;
   // 拖拽前事件
   onBeforeDropEvent?: Function;
+
+  onContextMenu?: Function;
 }
 
 export interface TreeData {
