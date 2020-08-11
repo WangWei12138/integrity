@@ -32,7 +32,7 @@
     "jquery": "^3.3.1",
     "ng-zorro-antd": "^0.7.0",
     "rxjs": "^5.5.6",
-    "tinymce": "^4.7.13",
+    "tinymce": "^4.9.11",
     "wangeditor": "^3.1.1",
     "zone.js": "^0.8.19"
   },
